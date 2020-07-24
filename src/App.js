@@ -15,8 +15,19 @@ class App extends React.Component {
     );
     const data = await api_call.json();
     this.setState({ recipes: data.recipes });
-    console.log(this.state.recipes);
   };
+
+  componentDidMount = () => {
+    const json = localStorage.getItem("recipes");
+    const recipes = JSON.parse(json);
+    this.setState({ recipes: recipes });
+  }
+
+  componentDidUpdate = () => {
+    const recipes = JSON.stringify(this.state.recipes);
+    localStorage.setItem("recipes", recipes);
+  }
+
   render() {
     return (
       <div className="App">
